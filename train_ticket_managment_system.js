@@ -183,14 +183,17 @@ const trips = [
 
 function printAllTrips(){
     console.log('trajets disponibles');
+    let id = 1;
     for(let trip in trips){
-        console.log(trips[trip].departure, '-->',
+        console.log(id, trips[trip].departure, '-->',
             trips[trip].destination,
             '\n Départ :', trips[trip].departureTime,
             '\n Arrivée :', trips[trip].arrivalTime,
             '\n Prix :', trips[trip].price,
             '\n Places disponibles :', trips[trip].availableSeats);
-        console.log('___________________________________');       
+        console.log('___________________________________'); 
+        id++      
     }
 };
 printAllTrips();
+
