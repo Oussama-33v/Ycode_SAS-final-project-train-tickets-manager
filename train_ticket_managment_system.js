@@ -181,18 +181,29 @@ const trips = [
     }
 ];
 
-function printAllTrips(){
+function printAllTrips() {
     console.log('trajets disponibles');
     let id = 1;
-    for(let trip in trips){
-        console.log(id, trips[trip].departure, '-->',
-            trips[trip].destination,
-            '\n Départ :', trips[trip].departureTime,
-            '\n Arrivée :', trips[trip].arrivalTime,
-            '\n Prix :', trips[trip].price,
-            '\n Places disponibles :', trips[trip].availableSeats);
-        console.log('___________________________________'); 
-        id++      
+
+    for (let trip in trips) {
+        if (trips[trip].availableSeats > 0) {
+            console.log(id, trips[trip].departure, '-->',
+                trips[trip].destination,
+                '\n Départ :', trips[trip].departureTime,
+                '\n Arrivée :', trips[trip].arrivalTime,
+                '\n Prix :', trips[trip].price,
+                '\n Places disponibles :', trips[trip].availableSeats);
+            console.log('___________________________________');
+        }
+        else {
+            console.log(id, trips[trip].departure, '-->',
+                trips[trip].destination,
+                '\n Départ :', trips[trip].departureTime,
+                '\n Arrivée :', trips[trip].arrivalTime,
+                '\n Prix :', trips[trip].price,
+                '\n Places disponibles :', 'tickets over');
+        }
+        id++
     }
 };
 printAllTrips();
