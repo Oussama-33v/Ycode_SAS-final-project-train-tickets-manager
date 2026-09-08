@@ -1,3 +1,4 @@
+const prompte = require('')
 const trips = [
     {
         id: 1,
@@ -181,6 +182,11 @@ const trips = [
     }
 ];
 
+function getUserInput(question){
+    let input = prompte(question);
+    return input;
+};
+
 function printAllTrips() {
     console.log('trajets disponibles');
     let id = 1;
@@ -206,5 +212,6 @@ function printAllTrips() {
         id++
     }
 };
-printAllTrips();
 
+
+printAllTrips();
