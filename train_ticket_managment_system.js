@@ -268,7 +268,6 @@ function printTickets(arrayOfTickets){
             'Pice :', arrayOfTickets[ticket].price,
         );        
     };
-
 }
 
 
