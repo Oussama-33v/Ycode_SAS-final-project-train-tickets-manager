@@ -246,17 +246,18 @@ function checkForAvailablePlaces(tripId, trips) {
         }
     };
 };
-// function ticketGenerate(userName, tripFounded){
-//        let ticket = {
-//         idTicket: tickets.length + 1,
-//         userName: userName,
-//         tripId: tripFounded.id,
-//         seatNumber: 50 - tripFounded.availableSeats + 1,
-//         price: tripFounded.price
-//     };
-//     tickets.push(ticket);
-//     tripFounded -= 1;
-// }
+function ticketGenerate(userName, tripFounded){
+       let ticket = {
+        idTicket: tickets.length + 1,
+        userName: userName,
+        tripId: tripFounded.id,
+        seatNumber: 50 - tripFounded.availableSeats + 1,
+        price: tripFounded.price
+    };
+    tickets.push(ticket);
+    tripFounded -= 1;
+
+}
 
 
 
