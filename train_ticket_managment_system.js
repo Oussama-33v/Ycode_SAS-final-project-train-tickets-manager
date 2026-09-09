@@ -203,7 +203,7 @@ function printAllTrips() {
             console.log('___________________________________');
         }
         else {
-            console.log('id :', trips[trip].id,
+            console.log(trips[trip].id,
                 trips[trip].departure, '-->',
                 trips[trip].destination,
                 '\n Départ :', trips[trip].departureTime,
@@ -226,31 +226,29 @@ function checkForTripsById(tripId, trips) {
     }
     if (check) {
         console.log('trip exist lets get you a ticket !');
-        return tripFounded;
+        //return tripFounded;
     }
     else {
         return ('trip is not exist for the moument');
     }
-
+    return tripFounded;
 };
 
-function checkForAvailablePlaces(tripId, trips) {
-    for (let trip in trips) {
-        if (trips[trip].id == tripId) {
-            if (trips[trip].availableSeats > 0) {
-                return 'seats available';
-            }
-            else {
-                return 'train is full';
-            };
-        }
+function checkForAvailablePlaces(tripfounded) {
+    if (tripfounded.availableSeats > 0) {
+        return 'seats available';
+    }
+    else {
+        return 'train is full';
     };
-};
+}
 
 function ticketGenerate(userName, tripFounded) {
     let ticket = {
         idTicket: tickets.length + 1,
         userName: userName,
+        start: tripFounded.departure,
+        end: tripFounded.destination,
         tripId: tripFounded.id,
         seatNumber: 50 - tripFounded.availableSeats + 1,
         price: tripFounded.price
@@ -261,6 +259,17 @@ function ticketGenerate(userName, tripFounded) {
     return ticket;
 };
 
+function formatTicket(ticket){
+        console.log(
+            '-------------------------------------------\n',
+            'Ticket number :' + ticket.idTicket,'\n',
+            'Owner :' + ticket.userName,'\n',
+            ticket.start ,' -----> ', ticket.end,'\n',
+            'Seat Number :' + ticket.seatNumber,'\n',
+            'Pice :' + ticket.price + 'DH\n',
+            '---------------------------------------------');
+}
+
 //  let trip = checkForTripsById(2, trips);
 //  let ticket = ticketGenerate('ayoub', trip)
 //  let printticket = printTickets(tickets)
@@ -268,12 +277,12 @@ function ticketGenerate(userName, tripFounded) {
 
 function printTickets(arrayOfTickets) {
     console.log('============= TICKETS ============');
-    for (let ticket in arrayOfTickets){
+    for (let ticket in arrayOfTickets) {
         console.log(
-            'Ticket number :'+ arrayOfTickets[ticket].idTicket,
-            'Owner :'+ arrayOfTickets[ticket].userName,
-            'Seat Number :'+ arrayOfTickets[ticket].seatNumber,
-            'Pice :'+ arrayOfTickets[ticket].price+ 'DH'
+            'Ticket number :' + arrayOfTickets[ticket].idTicket,
+            'Owner :' + arrayOfTickets[ticket].userName,
+            'Seat Number :' + arrayOfTickets[ticket].seatNumber,
+            'Pice :' + arrayOfTickets[ticket].price + 'DH'
         );
     };
 };
@@ -290,29 +299,31 @@ function canselTicket(teckitId, arrayOfTickets) {
         console.log('ticket cansled successfully');
         return arrayOfTickets;
     }
-    else{
+    else {
         return 'ticket not found !';
     };
 };
 
-function searchTickertByUserName(username, arrayOfTickets){
+function searchTickertByUserName(username, arrayOfTickets) {
     let check;
     let ticketFounded;
-    for(let ticket in tickets){
-        if(arrayOfTickets[ticket].userName === username){
+    for (let ticket in tickets) {
+        if (arrayOfTickets[ticket].userName === username) {
             check = true;
             ticketFounded = arrayOfTickets[ticket];
         }
     }
-    if(check){
+    if (check) {
         return ticketFounded;
     }
-    else{
+    else {
         return 'ticket not found !';
     }
 };
 
-console.log('==================================\n          RAILWAY MANAGER \n ==================================' );
+console.log('==================================\n',
+                        'RAILWAY MANAGER',
+        '\n ==================================');
 console.log(
     '1 >> print all trips available:\n',
     '2 >> Buy a ticket :\n',
@@ -324,19 +335,18 @@ console.log(
     '0 >> close app\n'
 );
 
-let firstInput = getUserInput('start App');
-switch(firstInput){
+let firstInput = +getUserInput('start App : ');
+switch (firstInput) {
     case 1:
         printAllTrips();
         break;
     case 2:
-        let id = getUserInput('enter an identifire to start searching for trip !');
+        let id = +getUserInput('enter an identifire to start searching for trip !');
+        let username = getUserInput('enter your full name !');
         let checkForTrip = checkForTripsById(id, trips);
-        let checkForPleac = checkForAvailablePlaces(id, trips);
-        console.log(checkForTrip);
+        let ticket = ticketGenerate(username, checkForTrip);
+        formatTicket(ticket)
         break;
     case 3:
-        let username = getUserInput('enter your full name !');
-        let ticket = ticketGenerate(checkForTrip)
-
+    
 }
