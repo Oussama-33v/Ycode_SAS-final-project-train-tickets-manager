@@ -256,6 +256,7 @@ function ticketGenerate(userName, tripFounded){
     };
     tickets.push(ticket);
     tripFounded -= 1;
+    console.log('ticket generated with succes !')
 }
 
 function printTickets(arrayOfTickets){
@@ -269,7 +270,6 @@ function printTickets(arrayOfTickets){
         );        
     };
 }
-
 
 
 // // let check = checkForTripsById(9, trips);
