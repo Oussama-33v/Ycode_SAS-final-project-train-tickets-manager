@@ -226,12 +226,12 @@ function checkForTripsById(tripId, trips) {
     }
     if (check) {
         console.log('trip exist lets get you a ticket !');
-        //return tripFounded;
+        return tripFounded;
     }
     else {
         return ('trip is not exist for the moument');
     }
-    return tripFounded;
+    //return tripFounded;
 };
 
 function checkForAvailablePlaces(tripfounded) {
