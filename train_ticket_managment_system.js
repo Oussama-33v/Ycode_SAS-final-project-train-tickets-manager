@@ -214,7 +214,6 @@ function printAllTrips() {
         };
     };
 };
-// printAllTrips()
 
 function checkForTripsById(tripId, trips) {
     let check;
@@ -233,7 +232,8 @@ function checkForTripsById(tripId, trips) {
         return ('trip is not exist for the moument');
     }
 
-}
+};
+
 function checkForAvailablePlaces(tripId, trips) {
     for (let trip in trips) {
         if (trips[trip].id == tripId) {
@@ -246,6 +246,7 @@ function checkForAvailablePlaces(tripId, trips) {
         }
     };
 };
+
 function ticketGenerate(userName, tripFounded) {
     let ticket = {
         idTicket: tickets.length + 1,
@@ -255,28 +256,27 @@ function ticketGenerate(userName, tripFounded) {
         price: tripFounded.price
     };
     tickets.push(ticket);
-    tripFounded -= 1;
+    tripFounded.availableSeats -= 1;
     console.log('ticket generated with succes !')
     return ticket;
-}
+};
 
-// let trip = checkForTripsById(4, trips)
-// let ticket = ticketGenerate('OUSSAMA', trip)
-
-// console.log(ticket);
-
+//  let trip = checkForTripsById(2, trips);
+//  let ticket = ticketGenerate('ayoub', trip)
+//  let printticket = printTickets(tickets)
+// console.log(printticket);
 
 function printTickets(arrayOfTickets) {
     console.log('============= TICKETS ============');
-    for (let ticket in arrayOfTickets) {
+    for (let ticket in arrayOfTickets){
         console.log(
-            'Ticket number :', arrayOfTickets[ticket].idTicket,
-            'Owner :', arrayOfTickets[ticket].userName,
-            'Seat Number :', arrayOfTickets[ticket].seatNumber,
-            'Pice :', arrayOfTickets[ticket].price, 'DH'
+            'Ticket number :'+ arrayOfTickets[ticket].idTicket,
+            'Owner :'+ arrayOfTickets[ticket].userName,
+            'Seat Number :'+ arrayOfTickets[ticket].seatNumber,
+            'Pice :'+ arrayOfTickets[ticket].price+ 'DH'
         );
     };
-}
+};
 
 function canselTicket(teckitId, arrayOfTickets) {
     let check;
@@ -286,17 +286,57 @@ function canselTicket(teckitId, arrayOfTickets) {
         }
     }
     if (check) {
-        arrayOfTickets.splice(teckitId, 1)
         arrayOfTickets.splice(teckitId, 1);
         console.log('ticket cansled successfully');
         return arrayOfTickets;
     }
     else{
         return 'ticket not found !';
+    };
+};
+
+function searchTickertByUserName(username, arrayOfTickets){
+    let check;
+    let ticketFounded;
+    for(let ticket in tickets){
+        if(arrayOfTickets[ticket].userName === username){
+            check = true;
+            ticketFounded = arrayOfTickets[ticket];
+        }
+    }
+    if(check){
+        return ticketFounded;
+    }
+    else{
+        return 'ticket not found !';
     }
 };
 
+console.log('==================================\n          RAILWAY MANAGER \n ==================================' );
+console.log(
+    '1 >> print all trips available:\n',
+    '2 >> Buy a ticket :\n',
+    '3 >> print all tickets :\n',
+    '4 >> Cansle a ticket :\n',
+    '5 >> Search for a teckit by owner username :\n',
+    '6 >> filter trips\n',
+    '7 >> Sort trip\n',
+    '0 >> close app\n'
+);
 
-// let check = checkForTripsById(9, trips);
-let chakeplace = checkForAvailablePlaces(5, trips)
-console.log(chakeplace);
+let firstInput = getUserInput('start App');
+switch(firstInput){
+    case 1:
+        printAllTrips();
+        break;
+    case 2:
+        let id = getUserInput('enter an identifire to start searching for trip !');
+        let checkForTrip = checkForTripsById(id, trips);
+        let checkForPleac = checkForAvailablePlaces(id, trips);
+        console.log(checkForTrip);
+        break;
+    case 3:
+        let username = getUserInput('enter your full name !');
+        let ticket = ticketGenerate(checkForTrip)
+
+}
