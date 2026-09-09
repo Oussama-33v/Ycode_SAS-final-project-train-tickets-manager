@@ -185,7 +185,7 @@ const trips = [
 
 const tickets = [];
 
-function getUserInput(question){
+function getUserInput(question) {
     let input = prompte(question);
     return input;
 };
@@ -195,7 +195,7 @@ function printAllTrips() {
     for (let trip in trips) {
         if (trips[trip].availableSeats > 0) {
             console.log(trips[trip].id,
-                trips[trip].departure, '-->',trips[trip].destination,
+                trips[trip].departure, '-->', trips[trip].destination,
                 '\n Départ :', trips[trip].departureTime,
                 '\n Arrivée :', trips[trip].arrivalTime,
                 '\n Prix :', trips[trip].price,
@@ -203,7 +203,7 @@ function printAllTrips() {
             console.log('___________________________________');
         }
         else {
-            console.log('id :',trips[trip].id,
+            console.log('id :', trips[trip].id,
                 trips[trip].departure, '-->',
                 trips[trip].destination,
                 '\n Départ :', trips[trip].departureTime,
@@ -216,37 +216,50 @@ function printAllTrips() {
 };
 // printAllTrips()
 
-function checkForTripsById(tripId, trips){
+function checkForTripsById(tripId, trips) {
     let check;
     let tripFounded;
-    for(let trip in trips){
-        if(trips[trip].id === tripId){
+    for (let trip in trips) {
+        if (trips[trip].id === tripId) {
             check = true;
             tripFounded = trips[trip];
         }
     }
-    if(check){
+    if (check) {
         console.log('trip exist lets get you a ticket !');
         return tripFounded;
     }
-    else{
-        return ('trip is not exist for the moument');   
+    else {
+        return ('trip is not exist for the moument');
     }
-    
-}
-// function checkFoeAvailablePlaces(tripfounded){
-//     if (tripfounded.availableSeats < 1){
-//         return 'no pleaces available for the moument';
-//     }
-//     else{
-//         return 'places available';
-//     }
 
+}
+function checkForAvailablePlaces(tripId, trips) {
+    for (let trip in trips) {
+        if (trips[trip].id == tripId) {
+            if (trips[trip].availableSeats > 0) {
+                return 'seats available';
+            }
+            else {
+                return 'train is full';
+            };
+        }
+    };
+};
+// function ticketGenerate(userName, tripFounded){
+//        let ticket = {
+//         idTicket: tickets.length + 1,
+//         userName: userName,
+//         tripId: tripFounded.id,
+//         seatNumber: 50 - tripFounded.availableSeats + 1,
+//         price: tripFounded.price
+//     };
+//     tickets.push(ticket);
+//     tripFounded -= 1;
 // }
 
-// let check = checkForTripsById(7, trips);
-// let chakeplace = checkFoeAvailablePlaces(check)
+
+
+// // let check = checkForTripsById(9, trips);
+// let chakeplace = checkForAvailablePlaces(5, trips)
 // console.log(chakeplace);
-
-
-
