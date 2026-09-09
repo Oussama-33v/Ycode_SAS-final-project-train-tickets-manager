@@ -1,4 +1,5 @@
-const prompte = require('')
+const prompte = require('prompt-sync')();
+
 const trips = [
     {
         id: 1,
@@ -7,7 +8,7 @@ const trips = [
         departureTime: "07:30",
         arrivalTime: "08:30",
         price: 25,
-        availableSeats: 50
+        availableSeats: 0
     },
     {
         id: 2,
@@ -182,19 +183,19 @@ const trips = [
     }
 ];
 
+const tickets = [];
+
 function getUserInput(question){
     let input = prompte(question);
     return input;
 };
 
 function printAllTrips() {
-    console.log('trajets disponibles');
-    let id = 1;
-
+    console.log('*********** trajets disponibles **********');
     for (let trip in trips) {
         if (trips[trip].availableSeats > 0) {
-            console.log(id, trips[trip].departure, '-->',
-                trips[trip].destination,
+            console.log(trips[trip].id,
+                trips[trip].departure, '-->',trips[trip].destination,
                 '\n Départ :', trips[trip].departureTime,
                 '\n Arrivée :', trips[trip].arrivalTime,
                 '\n Prix :', trips[trip].price,
@@ -202,16 +203,50 @@ function printAllTrips() {
             console.log('___________________________________');
         }
         else {
-            console.log(id, trips[trip].departure, '-->',
+            console.log('id :',trips[trip].id,
+                trips[trip].departure, '-->',
                 trips[trip].destination,
                 '\n Départ :', trips[trip].departureTime,
                 '\n Arrivée :', trips[trip].arrivalTime,
                 '\n Prix :', trips[trip].price,
-                '\n Places disponibles :', 'tickets over');
-        }
-        id++
-    }
+                '\n Places disponibles :', 'no available places !');
+            console.log('___________________________________');
+        };
+    };
 };
+// printAllTrips()
+
+function checkForTripsById(tripId, trips){
+    let check;
+    let tripFounded;
+    for(let trip in trips){
+        if(trips[trip].id === tripId){
+            check = true;
+            tripFounded = trips[trip];
+        }
+    }
+    if(check){
+        console.log('trip exist lets get you a ticket !');
+        return tripFounded;
+    }
+    else{
+        return ('trip is not exist for the moument');   
+    }
+    
+}
+// function checkFoeAvailablePlaces(tripfounded){
+//     if (tripfounded.availableSeats < 1){
+//         return 'no pleaces available for the moument';
+//     }
+//     else{
+//         return 'places available';
+//     }
+
+// }
+
+// let check = checkForTripsById(7, trips);
+// let chakeplace = checkFoeAvailablePlaces(check)
+// console.log(chakeplace);
 
 
-printAllTrips();
+
