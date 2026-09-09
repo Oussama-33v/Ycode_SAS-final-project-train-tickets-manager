@@ -246,8 +246,8 @@ function checkForAvailablePlaces(tripId, trips) {
         }
     };
 };
-function ticketGenerate(userName, tripFounded){
-       let ticket = {
+function ticketGenerate(userName, tripFounded) {
+    let ticket = {
         idTicket: tickets.length + 1,
         userName: userName,
         tripId: tripFounded.id,
@@ -257,21 +257,44 @@ function ticketGenerate(userName, tripFounded){
     tickets.push(ticket);
     tripFounded -= 1;
     console.log('ticket generated with succes !')
+    return ticket;
 }
 
-function printTickets(arrayOfTickets){
-    console.log('========= TICKETS =========');
-    for(let ticket in arrayOfTickets){
+// let trip = checkForTripsById(4, trips)
+// let ticket = ticketGenerate('OUSSAMA', trip)
+
+// console.log(ticket);
+
+
+function printTickets(arrayOfTickets) {
+    console.log('============= TICKETS ============');
+    for (let ticket in arrayOfTickets) {
         console.log(
             'Ticket number :', arrayOfTickets[ticket].idTicket,
             'Owner :', arrayOfTickets[ticket].userName,
             'Seat Number :', arrayOfTickets[ticket].seatNumber,
-            'Pice :', arrayOfTickets[ticket].price,
-        );        
+            'Pice :', arrayOfTickets[ticket].price, 'DH'
+        );
     };
 }
 
+function canselTicket(teckitId, arrayOfTickets) {
+    let check;
+    for (let ticket in arrayOfTickets) {
+        if (arrayOfTickets[ticket].teckitId === teckitId) {
+            check = true;
+        }
+    }
+    if (check) {
+        console.log('ticket cansled successfully')
+        return arrayOfTickets;
+    }
+    else{
+        return 'ticket not found !';
+    }
+};
 
-// // let check = checkForTripsById(9, trips);
-// let chakeplace = checkForAvailablePlaces(5, trips)
-// console.log(chakeplace);
+
+// let check = checkForTripsById(9, trips);
+let chakeplace = checkForAvailablePlaces(5, trips)
+console.log(chakeplace);
