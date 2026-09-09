@@ -256,6 +256,18 @@ function ticketGenerate(userName, tripFounded){
     };
     tickets.push(ticket);
     tripFounded -= 1;
+}
+
+function printTickets(arrayOfTickets){
+    console.log('========= TICKETS =========');
+    for(let ticket in arrayOfTickets){
+        console.log(
+            'Ticket number :', arrayOfTickets[ticket].idTicket,
+            'Owner :', arrayOfTickets[ticket].userName,
+            'Seat Number :', arrayOfTickets[ticket].seatNumber,
+            'Pice :', arrayOfTickets[ticket].price,
+        );        
+    };
 
 }
 
