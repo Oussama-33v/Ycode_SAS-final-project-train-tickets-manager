@@ -286,7 +286,9 @@ function canselTicket(teckitId, arrayOfTickets) {
         }
     }
     if (check) {
-        console.log('ticket cansled successfully')
+        arrayOfTickets.splice(teckitId, 1)
+        arrayOfTickets.splice(teckitId, 1);
+        console.log('ticket cansled successfully');
         return arrayOfTickets;
     }
     else{
