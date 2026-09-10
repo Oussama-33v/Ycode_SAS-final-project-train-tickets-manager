@@ -8,7 +8,7 @@ const trips = [
         departureTime: "07:30",
         arrivalTime: "08:30",
         price: 25,
-        availableSeats: 0
+        availableSeats: 50
     },
     {
         id: 2,
@@ -217,24 +217,23 @@ function printAllTrips() {
 
 function checkForTripsById(tripId, trips) {
     let check;
-    let tripFounded;
-    if(tripId > trips.length && 0 > tripId){
+    let tripfounded;
+    if (tripId > trips.length && 0 > tripId) {
         return 'Inviled input try another trip identifire';
     }
     for (let trip in trips) {
         if (trips[trip].id === tripId) {
             check = true;
-            tripFounded = trips[trip];
-        }
-    }
+            tripfounded = trips[trip];
+        };
+    };
     if (check) {
         console.log('trip exist lets get you a ticket !');
-        return tripFounded;
     }
     else {
-        return ('trip is not exist for the moument');
-    }
-    //return tripFounded;
+        console.log('trip is not exist for the moument');
+    };
+    return tripfounded || null;
 };
 
 function checkForAvailablePlaces(tripfounded) {
@@ -244,34 +243,39 @@ function checkForAvailablePlaces(tripfounded) {
     else {
         return 'train is full';
     };
-}
-
-function ticketGenerate(userName, tripFounded) {
-    let ticket = {
-        idTicket: tickets.length + 1,
-        userName: userName,
-        start: tripFounded.departure,
-        end: tripFounded.destination,
-        tripId: tripFounded.id,
-        seatNumber: 50 - tripFounded.availableSeats + 1,
-        price: tripFounded.price
-    };
-    tickets.push(ticket);
-    tripFounded.availableSeats -= 1;
-    console.log('ticket generated with succes !')
-    return ticket;
 };
 
-function formatTicket(ticket){
-        console.log(
-            '-------------------------------------------\n',
-            'Ticket number :' + ticket.idTicket,'\n',
-            'Owner :' + ticket.userName,'\n',
-            ticket.start ,' -----> ', ticket.end,'\n',
-            'Seat Number :' + ticket.seatNumber,'\n',
-            'Pice :' + ticket.price + 'DH\n',
-            '---------------------------------------------');
-}
+function ticketGenerator(userName, tripFounded) {
+    if (tripFounded === null) {
+        return 'trip not exist';
+    }
+    else {
+        let ticket = {
+            idTicket: tickets.length + 1,
+            userName: userName,
+            start: tripFounded.departure,
+            end: tripFounded.destination,
+            tripId: tripFounded.id,
+            seatNumber: 50 - tripFounded.availableSeats + 1,
+            price: tripFounded.price
+        };
+        tickets.push(ticket);
+        tripFounded.availableSeats -= 1;
+        console.log('ticket generated with succes !')
+        return ticket;
+    }
+};
+
+function formatTicket(ticket) {
+    console.log(
+        '-------------------------------------------\n',
+        'Ticket number :' + ticket.idTicket, '\n',
+        'Owner :' + ticket.userName, '\n',
+        ticket.start, ' -----> ', ticket.end, '\n',
+        'Seat Number :' + ticket.seatNumber, '\n',
+        'Pice :' + ticket.price + 'DH\n',
+        '---------------------------------------------');
+};
 
 //  let trip = checkForTripsById(2, trips);
 //  let ticket = ticketGenerate('ayoub', trip)
@@ -325,8 +329,8 @@ function searchTickertByUserName(username, arrayOfTickets) {
 };
 
 console.log('==================================\n',
-                        'RAILWAY MANAGER',
-        '\n ==================================');
+    'RAILWAY MANAGER',
+    '\n ==================================');
 console.log(
     '1 >> print all trips available:\n',
     '2 >> Buy a ticket :\n',
@@ -347,16 +351,9 @@ switch (firstInput) {
         let id = +getUserInput('enter an identifire to start searching for trips !');
         let username = getUserInput('enter your full name !');
         let checkForTrip = checkForTripsById(id, trips);
-        let ticket;
-        if(checkForTrip){
-            ticket = ticketGenerate(username, checkForTrip);
-        }
-        else{
-            console.log('trip is not exist for the moument')
-        }
-        
+        let ticket = ticketGenerator(username, checkForTrip);
         formatTicket(ticket)
         break;
     case 3:
-    
+
 }
