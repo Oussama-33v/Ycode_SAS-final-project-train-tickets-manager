@@ -224,23 +224,21 @@ function checkForTripsById(tripId, trips) {
     return null;
 };
 
-function checkForAvailablePlaces(tripid, trips) {
-    for (let trip in trips) {
-        if (trips[trip].id === tripid) {
-            return trips[trip].availableSeats > 0;
-        }
+// function checkForAvailablePlaces(tripid, trips) {
+//     for (let trip in trips) {
+//         if (trips[trip].id === tripid) {);
+//             return;
+//         };
+//     };
 
-    }
-    return false;
-};
+// };
 
 function ticketGenerator(userName, tripFounded) {
     if (tripFounded === null) {
         return 'trip not found';
     }
     else if (tripFounded.availableSeats < 1) {
-        console.log('no available seats');
-        return;
+        return 'NO SEATS AVAILABLE FOR THE MOUMENT !!';
     }
     else {
         let ticket = {
@@ -255,14 +253,14 @@ function ticketGenerator(userName, tripFounded) {
         tickets.push(ticket);
         tripFounded.availableSeats -= 1;
         console.log('ticket generated with succes !');
-        return ticket;
+        return formatTicket(ticket);
     }
 };
 
 function formatTicket(ticket) {
     console.log(
         '-------------------------------------------\n',
-        'Ticket number :' + ticket.idTicket, '\n',
+        'Ticket number :', ticket.idTicket, '\n',
         'Owner :' + ticket.userName, '\n',
         ticket.start, ' -----> ', ticket.end, '\n',
         'Seat Number :' + ticket.seatNumber, '\n',
@@ -289,7 +287,7 @@ function canselTicket(teckitId, arrayOfTickets) {
             check = true;
         }
     }
-    if (check) {
+    if (check === true) {
         arrayOfTickets.splice(teckitId, 1);
         console.log('ticket cansled successfully');
         return arrayOfTickets;
@@ -332,10 +330,10 @@ function filterTripsByStartCity(startCity, trips) {
 
 };
 
-function sortTripsByPrice(trips){
-    for(let i = 0; i < trips.length; i++){
-        for(let j = 0; j< trips.lenth; j++){
-            if(trips[j].price >= trips[j + 1]){
+function sortTripsByPrice(trips) {
+    for (let i = 0; i < trips.length; i++) {
+        for (let j = 0; j < trips.lenth; j++) {
+            if (trips[j].price >= trips[j + 1]) {
                 let temp = trips[j];
                 trips[j + 1] = trips[j];
                 trips[j] = temp;
@@ -345,10 +343,10 @@ function sortTripsByPrice(trips){
     return trips;
 }
 
-let firstInput; 
+let generalInput;
 
 do {
-    firstInput = +getUserInput('start App : ');
+    generalInput = +getUserInput('start App : ');
     console.log('==================================\n',
         '        RAILWAY MANAGER',
         '\n ==================================');
@@ -363,7 +361,7 @@ do {
         '0 >> close app\n'
     );
 
-    switch (firstInput) {
+    switch (generalInput) {
         case 1:
             printAllTrips();
             break;
@@ -372,7 +370,8 @@ do {
             let username = getUserInput('enter your full name !');
             let checkForTrip = checkForTripsById(id, trips);
             let ticket = ticketGenerator(username, checkForTrip);
-            formatTicket(ticket)
+            console.log(ticket)
+            // formatTicket(ticket)
             break;
         case 3:
             let listTickets = printTickets(tickets);
@@ -381,6 +380,7 @@ do {
         case 4:
             let idToCansel = +getUserInput('enter your ticket ID to cansel it !');
             let ticketCansled = canselTicket(idToCansel, tickets);
+            console.log(ticketCansled)
             break;
         case 5:
             let searchuser = getUserInput('enter your username to start searching for your ticket');
@@ -400,4 +400,4 @@ do {
             console.log('goodbye see you soon !');
     }
 }
-while (firstInput != 0)
+while (generalInput != 0)
