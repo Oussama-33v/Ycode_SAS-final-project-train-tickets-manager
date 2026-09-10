@@ -8,7 +8,7 @@ const trips = [
         departureTime: "07:30",
         arrivalTime: "08:30",
         price: 25,
-        availableSeats: 50
+        availableSeats: 0
     },
     {
         id: 2,
@@ -234,7 +234,7 @@ function checkForAvailablePlaces(tripid, trips) {
     return false;
 };
 
-function ticketGenerator(userName, checkPlace, tripFounded) {
+function ticketGenerator(userName, tripFounded) {
     if (tripFounded === null) {
         return 'trip not found';
     }
@@ -242,7 +242,7 @@ function ticketGenerator(userName, checkPlace, tripFounded) {
         console.log('no available seats');
         return;
     }
-    else{
+    else {
         let ticket = {
             idTicket: tickets.length + 1,
             userName: userName,
@@ -258,11 +258,6 @@ function ticketGenerator(userName, checkPlace, tripFounded) {
         return ticket;
     }
 };
-let checktrip = checkForTripsById(22, trips)
-// let checkplace = checkForAvailablePlaces(2, trips)
-let ticket = ticketGenerator('oussama', checktrip)
-console.log(ticket);
-
 
 function formatTicket(ticket) {
     console.log(
@@ -274,11 +269,6 @@ function formatTicket(ticket) {
         'Pice :' + ticket.price + 'DH\n',
         '---------------------------------------------');
 };
-
-//  let trip = checkForTripsById(2, trips);
-//  let ticket = ticketGenerate('ayoub', trip)
-//  let printticket = printTickets(tickets)
-// console.log(printticket);
 
 function printTickets(arrayOfTickets) {
     console.log('============= TICKETS ============');
@@ -326,32 +316,88 @@ function searchTickertByUserName(username, arrayOfTickets) {
     }
 };
 
-// console.log('==================================\n',
-//     '              RAILWAY MANAGER',
-//     '\n ==================================');
-// console.log(
-//     '1 >> print all trips available:\n',
-//     '2 >> Buy a ticket :\n',
-//     '3 >> print all tickets :\n',
-//     '4 >> Cansle a ticket :\n',
-//     '5 >> Search for a teckit by owner username :\n',
-//     '6 >> filter trips\n',
-//     '7 >> Sort trip\n',
-//     '0 >> close app\n'
-// );
+function filterTripsByStartCity(startCity, trips) {
+    let citysfounded = [];
+    for (let elem in trips) {
+        if (trips[elem].departure === startCity) {
+            citysfounded.push(trips[elem]);
+        };
+    };
+    for (let city in citysfounded) {
+        console.log('start :', citysfounded[city].departure, ' ------> ', citysfounded[city].destination,
+            'Price :', citysfounded[city].price
+        );
 
-// let firstInput = +getUserInput('start App : ');
-// switch (firstInput) {
-//     case 1:
-//         printAllTrips();
-//         break;
-//     case 2:
-//         let id = +getUserInput('enter an identifire to start searching for trips !');
-//         let username = getUserInput('enter your full name !');
-//         let checkForTrip = checkForTripsById(id, trips);
-//         let ticket = ticketGenerator(username, checkForTrip);
-//         formatTicket(ticket)
-//         break;
-//     case 3:
+    };
 
-// }
+};
+
+function sortTripsByPrice(trips){
+    for(let i = 0; i < trips.length; i++){
+        for(let j = 0; j< trips.lenth; j++){
+            if(trips[j].price >= trips[j + 1]){
+                let temp = trips[j];
+                trips[j + 1] = trips[j];
+                trips[j] = temp;
+            }
+        }
+    }
+    return trips;
+}
+
+let firstInput; 
+
+do {
+    firstInput = +getUserInput('start App : ');
+    console.log('==================================\n',
+        '        RAILWAY MANAGER',
+        '\n ==================================');
+    console.log(
+        '1 >> print all trips available:\n',
+        '2 >> Buy a ticket :\n',
+        '3 >> print all tickets :\n',
+        '4 >> Cansle a ticket :\n',
+        '5 >> Search for a teckit by owner username :\n',
+        '6 >> filter trips\n',
+        '7 >> Sort trip\n',
+        '0 >> close app\n'
+    );
+
+    switch (firstInput) {
+        case 1:
+            printAllTrips();
+            break;
+        case 2:
+            let id = +getUserInput('enter an identifire to start searching for trips !');
+            let username = getUserInput('enter your full name !');
+            let checkForTrip = checkForTripsById(id, trips);
+            let ticket = ticketGenerator(username, checkForTrip);
+            formatTicket(ticket)
+            break;
+        case 3:
+            let listTickets = printTickets(tickets);
+            console.log(listTickets);
+            break;
+        case 4:
+            let idToCansel = +getUserInput('enter your ticket ID to cansel it !');
+            let ticketCansled = canselTicket(idToCansel, tickets);
+            break;
+        case 5:
+            let searchuser = getUserInput('enter your username to start searching for your ticket');
+            let tickedFounded = searchTickertByUserName(searchuser, tickets);
+            console.log(tickedFounded);
+            break;
+        case 6:
+            let city = getUserInput('enter city name to start searchint for available trips !');
+            let cityfound = filterTripsByStartCity(city, trips);
+            console.log(cityfound);
+            break;
+        case 7:
+            let tripsSorted = sortTripsByPrice(trips);
+            console.log(tripsSorted);
+            break;
+        case 0:
+            console.log('goodbye see you soon !');
+    }
+}
+while (firstInput != 0)
