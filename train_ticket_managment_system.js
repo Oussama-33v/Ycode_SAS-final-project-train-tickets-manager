@@ -218,6 +218,9 @@ function printAllTrips() {
 function checkForTripsById(tripId, trips) {
     let check;
     let tripFounded;
+    if(tripId > trips.length && 0 > tripId){
+        return 'Inviled input try another trip identifire';
+    }
     for (let trip in trips) {
         if (trips[trip].id === tripId) {
             check = true;
@@ -341,10 +344,17 @@ switch (firstInput) {
         printAllTrips();
         break;
     case 2:
-        let id = +getUserInput('enter an identifire to start searching for trip !');
+        let id = +getUserInput('enter an identifire to start searching for trips !');
         let username = getUserInput('enter your full name !');
         let checkForTrip = checkForTripsById(id, trips);
-        let ticket = ticketGenerate(username, checkForTrip);
+        let ticket;
+        if(checkForTrip){
+            ticket = ticketGenerate(username, checkForTrip);
+        }
+        else{
+            console.log('trip is not exist for the moument')
+        }
+        
         formatTicket(ticket)
         break;
     case 3:
