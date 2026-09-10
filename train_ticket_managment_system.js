@@ -8,7 +8,7 @@ const trips = [
         departureTime: "07:30",
         arrivalTime: "08:30",
         price: 25,
-        availableSeats: 0
+        availableSeats: 50
     },
     {
         id: 2,
@@ -261,10 +261,10 @@ function formatTicket(ticket) {
     console.log(
         '-------------------------------------------\n',
         'Ticket number :', ticket.idTicket, '\n',
-        'Owner :' + ticket.userName, '\n',
+        'Owner : ' , ticket.userName, '\n',
         ticket.start, ' -----> ', ticket.end, '\n',
-        'Seat Number :' + ticket.seatNumber, '\n',
-        'Pice :' + ticket.price + 'DH\n',
+        'Seat Number : ' , ticket.seatNumber, '\n',
+        'Pice : ' , ticket.price , ' DH\n',
         '---------------------------------------------');
 };
 
@@ -344,9 +344,7 @@ function sortTripsByPrice(trips) {
 }
 
 let generalInput;
-
 do {
-    generalInput = +getUserInput('start App : ');
     console.log('==================================\n',
         '        RAILWAY MANAGER',
         '\n ==================================');
@@ -360,6 +358,7 @@ do {
         '7 >> Sort trip\n',
         '0 >> close app\n'
     );
+    generalInput = +getUserInput('start App with your choices :  ');
 
     switch (generalInput) {
         case 1:
@@ -370,8 +369,7 @@ do {
             let username = getUserInput('enter your full name !');
             let checkForTrip = checkForTripsById(id, trips);
             let ticket = ticketGenerator(username, checkForTrip);
-            console.log(ticket)
-            // formatTicket(ticket)
+            console.log(ticket);
             break;
         case 3:
             let listTickets = printTickets(tickets);
@@ -380,7 +378,7 @@ do {
         case 4:
             let idToCansel = +getUserInput('enter your ticket ID to cansel it !');
             let ticketCansled = canselTicket(idToCansel, tickets);
-            console.log(ticketCansled)
+            console.log(ticketCansled);
             break;
         case 5:
             let searchuser = getUserInput('enter your username to start searching for your ticket');
