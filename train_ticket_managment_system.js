@@ -179,7 +179,7 @@ const trips = [
         departureTime: "19:00",
         arrivalTime: "22:00",
         price: 95,
-        availableSeats: 50
+        availableSeats: 0
     }
 ];
 
@@ -259,13 +259,13 @@ function ticketGenerator(userName, tripFounded) {
 
 function formatTicket(ticket) {
     console.log(
-        '-------------------------------------------\n',
+        '---------------------------------------\n',
         'Ticket number :', ticket.idTicket, '\n',
         'Owner : ' , ticket.userName, '\n',
         ticket.start, ' -----> ', ticket.end, '\n',
         'Seat Number : ' , ticket.seatNumber, '\n',
         'Pice : ' , ticket.price , ' DH\n',
-        '---------------------------------------------');
+        '---------------------------------------');
 };
 
 function printTickets(arrayOfTickets) {
@@ -281,20 +281,13 @@ function printTickets(arrayOfTickets) {
 };
 
 function canselTicket(teckitId, arrayOfTickets) {
-    let check;
     for (let ticket in arrayOfTickets) {
         if (arrayOfTickets[ticket].teckitId === teckitId) {
-            check = true;
-        }
-    }
-    if (check === true) {
-        arrayOfTickets.splice(teckitId, 1);
-        console.log('ticket cansled successfully');
-        return arrayOfTickets;
-    }
-    else {
-        return 'ticket not found !';
+            arrayOfTickets.splice(arrayOfTickets[ticket], 1);
+            return;
+        };
     };
+    return 'ticket not found !';
 };
 
 function searchTickertByUserName(username, arrayOfTickets) {
@@ -333,10 +326,10 @@ function filterTripsByStartCity(startCity, trips) {
 function sortTripsByPrice(trips) {
     for (let i = 0; i < trips.length; i++) {
         for (let j = 0; j < trips.lenth; j++) {
-            if (trips[j].price >= trips[j + 1]) {
+            if (trips[j].price >= trips[j + 1].price) {
                 let temp = trips[j];
-                trips[j + 1] = trips[j];
-                trips[j] = temp;
+                trips[j] = trips[j + 1];
+                trips[j + 1] = temp;
             }
         }
     }
