@@ -261,13 +261,13 @@ function ticketGenerator(userName, tripFounded) {
 };
 
 function formatTicket(ticket) {
-    console.log(
+    return (
         '---------------------------------------\n',
         'Ticket number :', ticket.idTicket, '\n',
         'Owner : ' , ticket.userName, '\n',
         ticket.start, ' -----> ', ticket.end, '\n',
         'Seat Number : ' , ticket.seatNumber, '\n',
-        'Pice : ' , ticket.price , ' DH\n',
+        'Price : ' , ticket.price , ' DH\n',
         '---------------------------------------');
 };
 
@@ -407,3 +407,14 @@ do {
     }
 }
 while (generalInput != 0)
+
+function tripsstartedin8(trips){
+    let somme= 0
+    for (let elem in trips){
+        if(trips[elem].departure === '08:);
+
+    }
+    
+    .log(somme / trips.length)
+    console
+}
