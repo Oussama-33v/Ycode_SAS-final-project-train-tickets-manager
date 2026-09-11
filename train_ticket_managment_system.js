@@ -184,6 +184,7 @@ const trips = [
 ];
 
 const tickets = [];
+let count = 1;
 
 function getUserInput(question) {
     let input = prompte(question);
@@ -232,7 +233,6 @@ function checkForTripsById(tripId, trips) {
 //     };
 
 // };
-let count = 1;
 function ticketGenerator(userName, tripFounded) {
     if (tripFounded === null) {
         return 'trip not found';
@@ -401,7 +401,9 @@ do {
             console.log(tripsSorted);
             break;
         case 0:
-            console.log('goodbye see you soon !');
+            console.log('goodbye see you soon !');    
+        default :
+            console.log('Chois not found try again !');
     }
 }
 while (generalInput != 0)
