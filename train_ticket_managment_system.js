@@ -232,7 +232,7 @@ function checkForTripsById(tripId, trips) {
 //     };
 
 // };
-
+let count = 1;
 function ticketGenerator(userName, tripFounded) {
     if (tripFounded === null) {
         return 'trip not found';
@@ -241,9 +241,10 @@ function ticketGenerator(userName, tripFounded) {
         return 'NO SEATS AVAILABLE FOR THE MOUMENT !!';
     }
     else {
+        
         let ticket = {
-            idTicket: tickets.length + 1,
-            userName: userName,
+            idTicket: count,
+            userName: userName.toLowerCase(),
             start: tripFounded.departure,
             end: tripFounded.destination,
             tripId: tripFounded.id,
@@ -252,8 +253,10 @@ function ticketGenerator(userName, tripFounded) {
         };
         tickets.push(ticket);
         tripFounded.availableSeats -= 1;
+        count ++;
         console.log('ticket generated with succes !');
-        return formatTicket(ticket);
+        formatTicket(ticket);
+        return;
     }
 };
 
@@ -281,9 +284,9 @@ function printTickets(arrayOfTickets) {
 };
 
 function canselTicket(teckitId, arrayOfTickets) {
-    for (let ticket in arrayOfTickets) {
-        if (arrayOfTickets[ticket].teckitId === teckitId) {
-            arrayOfTickets.splice(arrayOfTickets[ticket], 1);
+    for (let ticket of arrayOfTickets) {
+        if (ticket.idTicket === teckitId) {
+            tickets.splice(teckitId -1, 1);
             return;
         };
     };
@@ -292,11 +295,11 @@ function canselTicket(teckitId, arrayOfTickets) {
 
 function searchTickertByUserName(username, arrayOfTickets) {
     let check;
-    let ticketFounded;
+    let ticketFounded = [];
     for (let ticket in tickets) {
-        if (arrayOfTickets[ticket].userName === username) {
+        if (arrayOfTickets[ticket].userName === username.toLowerCase()) {
             check = true;
-            ticketFounded = arrayOfTickets[ticket];
+            ticketFounded.push(arrayOfTickets[ticket]);
         }
     }
     if (check) {
@@ -323,24 +326,33 @@ function filterTripsByStartCity(startCity, trips) {
 
 };
 
-function sortTripsByPrice(trips) {
+function sortTripsByPrice(tripsSorted) {
     for (let i = 0; i < trips.length; i++) {
-        for (let j = 0; j < trips.lenth; j++) {
-            if (trips[j].price >= trips[j + 1].price) {
-                let temp = trips[j];
-                trips[j] = trips[j + 1];
-                trips[j + 1] = temp;
+        for (let j = 0; j < tripsSorted.length - 1; j++) {
+            if (tripsSorted[j].price > tripsSorted[j + 1].price) {
+                let temp = tripsSorted[j];
+                tripsSorted[j] = tripsSorted[j + 1];
+                tripsSorted[j + 1] = temp;
             }
         }
     }
-    return trips;
+    return tripsSorted;
+}
+
+function printSortedtrips(trips){
+    console.log('======= Trips Sorted ========');
+    for(let trip in trips){
+        console.log('start :',trips[trip].departure  ,' ====> ', 'end :',  trips[trip].destination, 'price :', trips[trip].price);
+    }
+    return;
 }
 
 let generalInput;
 do {
-    console.log('==================================\n',
-        '        RAILWAY MANAGER',
-        '\n ==================================');
+    console.log('====================================');
+    console.log('        RAILWAY MANAGER'             );
+    console.log('====================================');
+
     console.log(
         '1 >> print all trips available:\n',
         '2 >> Buy a ticket :\n',
@@ -359,7 +371,7 @@ do {
             break;
         case 2:
             let id = +getUserInput('enter an identifire to start searching for trips !');
-            let username = getUserInput('enter your full name !');
+            let username = getUserInput('enter your full name !'.toLowerCase());
             let checkForTrip = checkForTripsById(id, trips);
             let ticket = ticketGenerator(username, checkForTrip);
             console.log(ticket);
@@ -384,7 +396,8 @@ do {
             console.log(cityfound);
             break;
         case 7:
-            let tripsSorted = sortTripsByPrice(trips);
+            let tripsToSort = sortTripsByPrice(trips);
+            let tripsSorted = printSortedtrips(tripsToSort)
             console.log(tripsSorted);
             break;
         case 0:
