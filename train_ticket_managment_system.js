@@ -256,12 +256,11 @@ function ticketGenerator(userName, tripFounded) {
         count ++;
         console.log('ticket generated with succes !');
         formatTicket(ticket);
-        return;
     }
 };
 
 function formatTicket(ticket) {
-    return (
+    console.log (
         '---------------------------------------\n',
         'Ticket number :', ticket.idTicket, '\n',
         'Owner : ' , ticket.userName, '\n',
@@ -407,14 +406,3 @@ do {
     }
 }
 while (generalInput != 0)
-
-function tripsstartedin8(trips){
-    let somme= 0
-    for (let elem in trips){
-        if(trips[elem].departure === '08:);
-
-    }
-    
-    .log(somme / trips.length)
-    console
-}
